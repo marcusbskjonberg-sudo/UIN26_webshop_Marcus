@@ -1,3 +1,4 @@
+import CartItem from "./CartItem"
 export default function Cart({isOpen, cart, setCart, totalSum}){
     return (
       <section id="cart" className={isOpen ? "" : "hidden"}>
