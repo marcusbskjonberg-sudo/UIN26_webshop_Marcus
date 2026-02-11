@@ -6,6 +6,10 @@ import CategoryTitle from './components/CategoryTitle'
 import Header from './components/Header'
 import Nav from './components/Nav'
 import Products from './components/Products'
+import { Routes, Route } from 'react-router-dom'
+import Layout from './components/Layout'
+
+//-  npm i react-router-dom --save-dev
 
 function App() {
 
@@ -13,7 +17,7 @@ function App() {
   const [cart, setCart] = useState([])
   const [cartQuantity, setCartQuantity] = useState(0)
   const [totalSum, setTotalSum] = useState(0)
-
+  
   console.log("cart", cart)
 
   useEffect(()=>{
@@ -26,16 +30,23 @@ function App() {
     setTotalSum(total)
   },[cart])  
 
-  return (
-    <div id="container">
-      <Header setIsOpen={setIsOpen} cartQuantity={cartQuantity} />
-      <Nav />
+  function Page(){
+    return(
       <main>
-        <CategoryTitle />
-        <Products products={products} setCart={setCart}/>
+      <CategoryTitle />
+      <Products products={products} setCart={setCart}/>
       </main>
-      <Cart isOpen={isOpen} cart={cart} setCart={setCart} totalSum={totalSum} />
-    </div>
+    )
+  }
+
+  return (
+    <Layout setIsOpen={setIsOpen} cartQuantity={cartQuantity} isOpen={isOpen} cart={cart} setCart={setCart} totalSum={totalSum}>
+      <Routes>
+        <Route index element={<Page />} />
+        <Route path='city' element={<CategoryTitle title="City"/>}/>
+        <Route path='ninjago' element={<CategoryTitle title="Ninjago"/>}/>
+      </Routes>
+    </Layout>
   )
 }
 
